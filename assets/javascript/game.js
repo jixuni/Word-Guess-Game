@@ -1,12 +1,19 @@
 
-//set a plank array 
-let blankWords = [];
+var correctGuess = [];
+var htmlCorrectGuess = document.getElementById("correct_guesses");
+
+var wrongGuess = [];
+var htmlWrongGuess = document.getElementById("already_guessed");
+
+
+//set a blank array 
+var blankWords = [];
 
 // These are my hangman words store in const zodiac 
-const zodiac = ["dragon", "snake", "pig", "monkey", "horse", "sheep", "rat", "rooster", "ox", "tiger", "rabbit", "dog"];
+var zodiac = ["dragon", "snake", "pig", "monkey", "horse", "sheep", "rat", "rooster", "ox", "tiger", "rabbit", "dog"];
 
 // random generator rounded down to nearest whole number, picks randomly an index in zodiac
-let randomNum = Math.floor(Math.random() * zodiac.length);
+var randomNum = Math.floor(Math.random() * zodiac.length);
 
 // This allows chooseRand to be assign to random index in zodiac and the corresponding string attach to that index
 let chooseRand = zodiac[randomNum];
@@ -14,24 +21,31 @@ console.log(chooseRand);
 
 //Function loops through chooseRend and append "_" to blank words base on the the length of the string. Also returns blankWords
 function guessNumber() {
-	for(let i = 0; i < chooseRand.length; i++ ) {
+	for(var i = 0; i < chooseRand.length; i++ ) {
 		blankWords.push("_");
 	}
 	return blankWords;
 }
+guessNumber();
+console.log(blankWords);
 
-window.addEventListener("keydown", checkKeyPress);
+var replaceContent = document.getElementById("magic_word");
+replaceContent.textContent = blankWords.join(" ");// removes the ,  between _
 
-function checkKeyPress(key){
-	if(key.keyCode == "65"){
-		console.log(String.fromCharCode(key.keyCode));
+
+document.onkeyup = function(event){
+	for(var i = 0; i < chooseRand.length; i++){
+		console.log(event.key)
+		if(event.key === chooseRand[i]){
+			correctGuess.push(event.key);
+			console.log("correct guess", correctGuess);
+			correctGuess = htmlCorrectGuess.textContent;
+		}
+		if(event.key !== chooseRand[i] && event.key !== wrongGuess){
+			wrongGuess.push(event.key);
+			htmlWrongGuess.textContent = wrongGuess;
+			console.log("wrong guess", wrongGuess);
+		}
 	}
 }
-
-console.log(guessNumber());
-
-
-
-
-
 
