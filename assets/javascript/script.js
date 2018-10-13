@@ -1,9 +1,12 @@
 var correctGuess = [];
 var wrongGuess = [];
 
-var lifeLeft = [];
-
+var lifeLeft = 7;
 var magicWord = [];
+var playerGuess = [];
+var winningCounter = 0;
+var htmlMagicWord = document.getElementById("magic_word");
+var htmlWrongGuess = document.getElementById("wrong_guess");
 
 const zodiac = [
     "dragon", 
@@ -20,7 +23,7 @@ const zodiac = [
     "dog"
 ];
 
-var randomNum = Math.floor(Math.random()* zodiac.length);
+var randomNum = Math.floor(Math.random() * zodiac.length);
 
 var chooseWord = zodiac[randomNum];
 
@@ -31,22 +34,40 @@ function randomWord(){
     return magicWord;
 }
 randomWord();
-console.log(magicWord);
 
 var htmlMagicWord = document.getElementById("magic_word");
-var htmlWrongGuess = document.getElementById("wrong_guess")
-
+var htmlWrongGuess = document.getElementById("wrong_guess");
+htmlMagicWord.textContent = magicWord.join(" "); // the .join method removes the , next to the _ 
 
 document.onkeyup = function(event){
-    for(var i = 0; i < chooseWord.length; i++){
-        if(event.key == chooseWord[i]){
-           magicWord[i] = chooseWord[i]; 
-           htmlMagicWord.textContent = magicWord.join(" "); // the .join method removes the , next to the _ 
+    playerGuess = event.key
+
+    if (chooseWord.indexOf(playerGuess) > -1){
+        for(var i = 0; i < chooseWord.length; i++){
+            if(chooseWord[i] === playerGuess) {
+                magicWord[i] = playerGuess;
+                winningCounter ++;
+                console.log(magicWord);
+                console.log(playerGuess);
+                winnerOrLoser();
+            }
         }
-        if(event.key !== magicWord[i]){
-            wrongGuess.push(event.key);
-            console.log(wrongGuess);
-        }
+    } else{
+        wrongGuess.push(playerGuess);
+        lifeLeft--;
+        console.log(lifeLeft);
+        winnerOrLoser();
     }
+
+
 }
 console.log(chooseWord);
+function winnerOrLoser() {
+    if (winningCounter === chooseWord.length){
+        alert("You win");
+    } else if(lifeLeft === 0){
+        alert("you lose");
+    }
+}
+
+
