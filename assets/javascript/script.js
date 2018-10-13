@@ -32,13 +32,20 @@ function randomWord(){
 }
 randomWord();
 console.log(magicWord);
- var htmlMagicWord = document.getElementById("magic_word");
-htmlMagicWord.textContent = magicWord.join(" ");
+
+var htmlMagicWord = document.getElementById("magic_word");
+var htmlWrongGuess = document.getElementById("wrong_guess")
+
 
 document.onkeyup = function(event){
     for(var i = 0; i < chooseWord.length; i++){
         if(event.key == chooseWord[i]){
-            magicWord.splice([i], 1, event.key);
+           magicWord[i] = chooseWord[i]; 
+           htmlMagicWord.textContent = magicWord.join(" "); // the .join method removes the , next to the _ 
+        }
+        if(event.key !== magicWord[i]){
+            wrongGuess.push(event.key);
+            console.log(wrongGuess);
         }
     }
 }
