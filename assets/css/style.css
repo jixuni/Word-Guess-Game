@@ -1,0 +1,18 @@
+body, html {
+    height: 100%;
+    background-image:url(art-bokeh-bright-1455985.jpg);
+
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row {
+    opacity: 0.7;
+}
+
+#audio, #audio2 {
+    display: none;
+}
