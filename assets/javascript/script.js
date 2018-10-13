@@ -1,4 +1,4 @@
-var correctGuess = [];
+
 var wrongGuess = [];
 
 var lifeLeft = 7;
@@ -6,7 +6,7 @@ var magicWord = [];
 var playerGuess = [];
 var winningCounter = 0;
 var htmlMagicWord = document.getElementById("magic_word");
-var htmlWrongGuess = document.getElementById("wrong_guess");
+
 
 const zodiac = [
     "dragon", 
@@ -35,9 +35,10 @@ function randomWord(){
 }
 randomWord();
 
-var htmlMagicWord = document.getElementById("magic_word");
-var htmlWrongGuess = document.getElementById("wrong_guess");
+
+
 htmlMagicWord.textContent = magicWord.join(" "); // the .join method removes the , next to the _ 
+
 
 document.onkeyup = function(event){
     playerGuess = event.key
@@ -47,21 +48,24 @@ document.onkeyup = function(event){
             if(chooseWord[i] === playerGuess) {
                 magicWord[i] = playerGuess;
                 winningCounter ++;
-                console.log(magicWord);
-                console.log(playerGuess);
+                youGotIt();
+                //console.log(magicWord); bug fixing
+                //console.log(playerGuess);bug fixing
                 winnerOrLoser();
             }
         }
     } else{
         wrongGuess.push(playerGuess);
         lifeLeft--;
-        console.log(lifeLeft);
+        //console.log(lifeLeft); bug fixing
         winnerOrLoser();
+        replaceWrong();
+        remainingLife();
     }
 
 
 }
-console.log(chooseWord);
+//console.log(chooseWord); bug fixing
 function winnerOrLoser() {
     if (winningCounter === chooseWord.length){
         alert("You win");
@@ -71,3 +75,21 @@ function winnerOrLoser() {
 }
 
 
+function replaceWrong(){
+    var htmlWrongGuess = document.getElementById("wrong_guess");
+    htmlWrongGuess.textContent = wrongGuess;
+}
+
+function remainingLife(){
+    var guessLeft = document.getElementById("lifeLeft")
+    guessLeft.textContent = lifeLeft;
+}
+
+function youGotIt(){
+    var htmlCorrectGuess = document.getElementById("magic_word");
+    htmlCorrectGuess.textContent = magicWord.join(" ");
+}
+
+function reset(){
+    window.location.reload();
+}
